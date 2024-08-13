@@ -1,4 +1,4 @@
-FROM python:3.8
+FROM python:3.8 as base_web 
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update
@@ -8,19 +8,12 @@ RUN pip install --upgrade pip
 
 RUN apt-get update
 
-
-
-
 COPY ./requirements.txt requirements.txt
-RUN pip install -r requirements.txt 
 
 RUN pip install -r requirements.txt --ignore-installed nose-progressive
 
-# Install PDF converter
-RUN wget --no-check-certificate https://dl.xpdfreader.com/xpdf-tools-linux-4.05.tar.gz  && \
-    tar -xvf xpdf-tools-linux-4.05.tar.gz && cp xpdf-tools-linux-4.05/bin64/pdftotext /usr/local/bin
     
-
+FROM base_web as web 
 # Adds our application code to the image
 COPY . code
 WORKDIR code

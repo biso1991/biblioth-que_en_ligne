@@ -31,7 +31,7 @@ services:
       - '8000:8000'
     depends_on:
       - postgres
-      - redis
+      # - redis
   # worker:
   #   build:
   #     context: .
@@ -51,7 +51,7 @@ services:
   documentation:
     restart: always
     build: ./
-    command: "mkdocs serve" # 
+    command: "mkdocs serve" # mkdocs new . && mkdocs serve && mkdocs build
     volumes:
       - ./:/code
     ports:
@@ -75,27 +75,27 @@ services:
       - 1025:1025 # smtp server
       - 8025:8025 # web ui
   
-  redis:
-    image: redis:6.2-alpine
-    restart: always
-    # network_mode: 172.22.0.3
-    ports:
-      - '6379:6379'
-    # tty: true
-    command: redis-server --save 20 1 --loglevel warning
-    volumes:
-      - cache-redis2:/data
-  flower:
-    image: mher/flower
-    environment:
-      - CELERY_BROKER_URL=redis://redis:6379/0
-      - FLOWER_PORT=8888
-    ports:
-      - 5555:8888
-    depends_on:
-      - redis
-    restart: always
-volumes:
-  cache-redis2:
-    driver: local
+  # redis:
+  #   image: redis:6.2-alpine
+  #   restart: always
+  #   # network_mode: 172.22.0.3
+  #   ports:
+  #     - '6379:6379'
+  #   # tty: true
+  #   command: redis-server --save 20 1 --loglevel warning
+  #   volumes:
+  #     - cache-redis2:/data
+  # flower:
+  #   image: mher/flower
+  #   environment:
+  #     - CELERY_BROKER_URL=redis://redis:6379/0
+  #     - FLOWER_PORT=8888
+  #   ports:
+  #     - 5555:8888
+  #   depends_on:
+  #     - redis
+  #   restart: always
+# volumes:
+#   cache-redis2:
+#     driver: local
 # --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81

@@ -18,8 +18,8 @@ django_unique_upload==0.2.1
 
 
 
-
-
+jinja2==2.11.3
+markupsafe==2.0.1
 
 # Rest apis 
 djangorestframework==3.13.1

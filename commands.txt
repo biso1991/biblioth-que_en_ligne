@@ -1,0 +1,9 @@
+username: bilel
+Email address: bilel@gmail.com
+Password: 1991
+
+docker-compose up
+docker-compose run --rm web ./manage.py makemigrations 
+docker-compose run --rm web ./manage.py migration
+docker-compose run --rm web ./manage.py createsuperuser
+celery -A api worker --loglevel=info -E -P threads -c 4 -O fair --detach --logfile=celery.log

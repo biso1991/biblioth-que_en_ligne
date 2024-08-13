@@ -1,8 +1,9 @@
-site_name: api
-site_description: Its all about a bilel score > 5.0
-repo_url: https://github.com/helseroc/backend
+site_name: Online Library 
+docs_dir: docs
+site_description: Une application de bibliothèque en ligne qui permet aux utilisateurs de s'inscrire, de se connecter, de rechercher des livres, de gérer les emprunts et d'administrer le contenu
+repo_url: https://github.com/biso1991/biblioth-que_en_ligne/tree/backend
 site_dir: site
-copyright: Copyright &copy; 2020, <a href="https://github.com/helseroc">helseroc</a>.
+copyright: Copyright &copy; 2024, <a href="https://github.com/biso1991/biblioth-que_en_ligne/tree/backend">Bilel Nasri</a>.
 dev_addr: 0.0.0.0:8001
 
 nav:
@@ -10,3 +11,11 @@ nav:
   - API:
     - Authentication: 'api/authentication.md'
     - Users: 'api/users.md'
+    - Library: 'api/library.md'
+  - Documentation:
+    - Installation: 'installation.md'
+    - API Endpoints: 'api_endpoints.md'
+    - Tool: 'tools.md'
+     
+
+

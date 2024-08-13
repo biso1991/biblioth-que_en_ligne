@@ -19,7 +19,7 @@ class UserViewSet(
     """
 
     queryset = User.objects.all()
-    print(queryset)
+    # print(queryset)
     serializer_class = UserSerializer
     print("########################################################### serializer_class ",serializer_class)
     permission_classes = (IsUserOrReadOnly,)
@@ -56,7 +56,7 @@ class UserCreateViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     Creates user accounts
     """
     queryset = User.objects.all()
-    print(queryset, "#######################################################################")
+    # print(queryset, "#######################################################################")
     serializer_class = CreateUserSerializer
     # Allows access only to authenticated users.
     permission_classes = (AllowAny,)
