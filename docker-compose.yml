@@ -1,0 +1,101 @@
+version: '3'
+services:
+  postgres:
+    image: postgres:11.6
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpassword
+      POSTGRES_DB: qadb
+
+  web:
+    restart: always
+    environment:
+      - DJANGO_SECRET_KEY=django-insecure-allh*#e0kt0k!506olz1h8@7u&qowi7$bfvotufg)37yo@)%vj
+    build: ./
+    command: >
+      bash -c " pip install --upgrade pip &&
+                python wait_for_postgres.py &&
+                ./manage.py makemigrations &&
+               ./manage.py migrate &&
+               ./manage.py runserver 0.0.0.0:8000
+              "
+# celery -A api worker --loglevel=info -E -P threads &
+    # deploy:
+    #   resources:
+    #     limits:
+    #       # cpus: '0.50'
+    #       memory: 3000M
+    volumes:
+      - ./:/code
+    ports:
+      - '8000:8000'
+    depends_on:
+      - postgres
+      - redis
+  # worker:
+  #   build:
+  #     context: .
+  #   image: celery
+  #   command:
+  #     ['celery', '-A', 'api', 'worker', '-l', 'info', '-E', '-P', 'threads']
+  #   environment:
+  #     - BROKER_URL=redis://redis:6379/0
+  #     - RESULT_BACKEND=redis://redis:6379/0
+  #     - C_FORCE_ROOT=true
+  #   volumes:
+  #     - ./:/app/
+  #   depends_on:
+  #     - redis
+  #   restart: always
+  
+  documentation:
+    restart: always
+    build: ./
+    command: "mkdocs serve" # 
+    volumes:
+      - ./:/code
+    ports:
+      - '8001:8001'
+  pgadmin:
+    depends_on:
+      - postgres
+      - web 
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: dbuser@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 1991
+    ports:
+      - 5050:80
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none' # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+  
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    # network_mode: 172.22.0.3
+    ports:
+      - '6379:6379'
+    # tty: true
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - cache-redis2:/data
+  flower:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - FLOWER_PORT=8888
+    ports:
+      - 5555:8888
+    depends_on:
+      - redis
+    restart: always
+volumes:
+  cache-redis2:
+    driver: local
+# --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
