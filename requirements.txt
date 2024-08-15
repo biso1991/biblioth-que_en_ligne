@@ -18,12 +18,8 @@ django_unique_upload==0.2.1
 
 
 
-jinja2==2.11.3
-markupsafe==2.0.1
-
 # Rest apis 
 djangorestframework==3.13.1
-Markdown==3.3.6
 django-filter==21.1
 django-cors-headers==3.11.0
 django-rest-passwordreset==1.2.1
@@ -33,7 +29,6 @@ channels-redis
 # Developer Tools
 ipdb==0.13.9
 ipython==8.0.0
-mkdocs==1.2.3
 flake8==4.0.1
 
 # Testing
@@ -51,3 +46,6 @@ whitenoise==6.2.0
 
 # Magic library
 python-magic==0.4.24
+
+
+

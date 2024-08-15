@@ -1,7 +1,7 @@
 import os
 from os.path import join
 from distutils.util import strtobool
-# import dj_database_url
+import dj_database_url
 from configurations import Configuration
 import logging.config
 from django.utils.log import DEFAULT_LOGGING
@@ -47,6 +47,7 @@ class Common(Configuration):
     # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
     MIDDLEWARE = (
         "django.middleware.security.SecurityMiddleware",
+        # "whitenoise.middleware.WhiteNoiseMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.middleware.csrf.CsrfViewMiddleware",
@@ -55,6 +56,7 @@ class Common(Configuration):
         "django.middleware.clickjacking.XFrameOptionsMiddleware",
         "corsheaders.middleware.CorsMiddleware",
         "django.middleware.common.CommonMiddleware",
+        
     )
 
     CORS_ALLOWED_ORIGINS = []
@@ -78,20 +80,20 @@ class Common(Configuration):
     # My Supervisor 
     ADMINS = (("Author", "bilelnasrinasri91@gmail.com"),)
 
-    DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        }
-    }
-
-    # # Postgres
     # DATABASES = {
-    #     "default": dj_database_url.config(
-    #         default="postgres://dbuser:dbpassword@postgres:5432/qadb",
-    #         conn_max_age=int(os.getenv("POSTGRES_CONN_MAX_AGE", 600)),
-    #     )
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    #     }
     # }
+
+    # Postgres
+    DATABASES = {
+        "default": dj_database_url.config(
+            default="postgres://dbuser:dbpassword@postgres:5432/qadb",
+            conn_max_age=int(os.getenv("POSTGRES_CONN_MAX_AGE", 600)),
+        )
+    }
 
     # General
     APPEND_SLASH = False
@@ -139,7 +141,16 @@ class Common(Configuration):
         "django.contrib.staticfiles.finders.AppDirectoriesFinder",
     )
 
-    # Media files
+# doc: https://whitenoise.readthedocs.io/en/stable/django.html
+# STORAGES = {
+#     # ...
+#     "staticfiles": {
+#         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#     },
+# or this method:
+    # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+#     # Media files
     MEDIA_ROOT = join(os.path.dirname(BASE_DIR), "media")
     MEDIA_URL = "media/"
 
