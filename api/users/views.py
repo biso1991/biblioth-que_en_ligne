@@ -18,8 +18,8 @@ class UserViewSet(
     Updates , retrieves and Delete user accounts
     """
 
-    queryset = User.objects.all()
-    # print(queryset)
+    queryset = User.objects.all(id)
+
     serializer_class = UserSerializer
     print("########################################################### serializer_class ",serializer_class)
     permission_classes = (IsUserOrReadOnly,)
