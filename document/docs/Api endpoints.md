@@ -1,0 +1,17 @@
+# **Backend Documentation**
+
+## **API END POINT Table:**
+
+### User Management:
+
+| Model name                       | Method    | Request Path                        | Response Result | Content type     | Permission                                                 | Description                                                       | Payload                                            |  |
+| -------------------------------- | --------- | ----------------------------------- | --------------- | ---------------- | ---------------------------------------------------------- | ----------------------------------------------------------------- | -------------------------------------------------- | - |
+| Register User                    | POST      | /api/v1/users/                      | 201             | application/json | Not Authorization Protected                                | Register a new user account.                                      | {username, password,first_name, last_name, email } |  |
+| Get User                         | GET       | /api/v1/users/<ID_USER>/            | 200             | application/json | Authorization Protected(Authorization:Bearer +`<token>`) | Get a user's profileinformation.                                  | None                                               |  |
+| Update User                      | PUT/PATCH | /api/v1/users/<ID_USER>/            | 200             | application/json | Authorization Protected(Authorization:Bearer +`<token>`) | Update user profile information.                                  | {first_name,last_name, email}                      |  |
+| Delete User                      | DELETE    | /api/v1/users/<ID_USER>/            | 204             | application/json | Authorization Protected(Authorization:Bearer +`<token>`) | Delete user profileinformation.                                   | None                                               |  |
+| Get Auth Token                   | POST      | /api-token-auth/                    | 200             | application/json | Authorization Protected(Authorization:Bearer +`<token>`) | Get authentication Token.                                         | {username,password}                                |  |
+| Change User Password             | POST      | /api/v1/users/<ID_USER>/            | 200             | application/json | Authorization Protected(Authorization:Bearer +`<token>`) | Change user Password.                                             | { old password, new_password}                     |  |
+| Send Email verification          | POST      | /api/password_reset/                | 200             | application/json | Authorization Protected(Authorization:Bearer +`<token>`) | Send email verification tochange user password (forgot password). | {email}                                            |  |
+| Validate email verificationtoken | POST      | /api/password_reset/validate_token/ | 200             | application/json | Authorization Protected(Authorization:Bearer +`<token>`) | Verify email verificationtoken.                                   | {token}                                            |  |
+| Change password by emailtoken    | POST      | /api/password_reset/confirm/        | 200             | application/json | Authorization Protected(Authorization:Bearer +`<token>`) | Change password by email tokenwith verification.                  | {token, password}                                  |  |

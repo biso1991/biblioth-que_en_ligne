@@ -15,7 +15,7 @@ check_timeout = os.getenv(key[0], 30)
 check_interval = os.getenv(key[1], 1)
 interval_unit = "second" if check_interval == 1 else "seconds"
 config = {
-    "dbname": os.getenv(key[2], "qadb"),
+    "dbname": os.getenv(key[2], "dbbib"),
     "user": os.getenv(key[3], "dbuser"),
     "password": os.getenv(key[4], "dbpassword"),
     "host": os.getenv(key[5], "postgres"),

@@ -30,9 +30,11 @@ class Common(Configuration):
         "django_filters",  # for filtering rest endpoints
         "corsheaders",  # ENABLING CORS IN REST API
         # "django_celery_beat",
-        "django_celery_results",
+        # "django_celery_results",
         # Your apps
         "api.users",
+        # "api.on_lib",
+
     )
 
     # CHANNEL_LAYERS = {
@@ -90,7 +92,7 @@ class Common(Configuration):
     # Postgres
     DATABASES = {
         "default": dj_database_url.config(
-            default="postgres://dbuser:dbpassword@postgres:5432/qadb",
+            default="postgres://dbuser:dbpassword@postgres:5432/dbbib",
             conn_max_age=int(os.getenv("POSTGRES_CONN_MAX_AGE", 600)),
         )
     }

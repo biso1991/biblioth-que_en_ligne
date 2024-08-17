@@ -5,12 +5,12 @@ services:
     environment:
       POSTGRES_USER: dbuser
       POSTGRES_PASSWORD: dbpassword
-      POSTGRES_DB: qadb
+      POSTGRES_DB: dbbib
 
   web:
     restart: always
     environment:
-      - DJANGO_SECRET_KEY=django-insecure-allh*#e0kt0k!506olz1h8@7u&qowi7$bfvotufg)37yo@)%vj
+      - DJANGO_SECRET_KEY=django-insecure-allh*#e0kt0k!506olz1h8@7u&cd owi7$bfvotufg)37yo@)%vj
     build: ./
     command: >
       bash -c " pip install --upgrade pip &&
